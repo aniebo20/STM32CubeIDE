@@ -18,7 +18,7 @@ int main()
 	while(1)
 	{
 		adc_val = adc1_read();
-		printf("Sensor Value : %d", adc_val);
+		printf("Sensor Value : %d \n\r", adc_val);
 	}
 }
 
