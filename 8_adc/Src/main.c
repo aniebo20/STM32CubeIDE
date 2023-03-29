@@ -1,35 +1,24 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "stm32f7xx.h"
 #include "uart.h"
 
-/*READ FROM UART RX AND TURN ON LED WHEN RX READS 3*/
+/*			READ INTERNAL TEMPERATURE ANALOG SIGNAL THROUGH ADC
+ * Temp Sensor pin is VBAT, ADC1_IN18 */
 
-char key;
-
-void utx(char* string, int len)
-{
-	for(int i = 0; i < len; i++)
-	{
-		uart3_tx(*string);
-		string++;
-	}
-}
-
+/* Set ADON bit in the ADC_CR2
+ * SWSTART or the JSWSTART bit is set*/
+uint32_t adc_val = 0;
 int main()
 {
 	uart3_rxtx_init();
-
-
+	adc_pc0_config();
+	adc_pc0_start_conversion();
 
 	while(1)
 	{
-		key = '+';
-		key = uart3_rx();
-		if (key == '3')
-		{
-			utx("Key is correct", 14);
-		}
-		else if (key != '+')
-			utx("Key is incorrect", 16);
-
+		adc_val = adc1_read();
+		printf("Sensor Value : %d", adc_val);
 	}
 }
 

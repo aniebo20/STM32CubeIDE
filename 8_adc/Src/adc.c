@@ -1,5 +1,5 @@
-#include "adc.h"
 #include "stm32f7xx.h"
+#include "adc.h"
 
 /*			 Configure the ADC GPIO Pin
  * 1. Set Pin mode PC0 to ADC1_IN10
@@ -58,7 +58,7 @@ void adc_pc0_start_conversion(void)
 	ADC1->CR2 |= (1U << 30);
 }
 
-uint16_t adc1_read()
+uint32_t adc1_read()
 {
 	while (!(ADC1->SR & (1U << 1))) {}
 
