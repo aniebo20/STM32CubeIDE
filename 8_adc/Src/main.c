@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "stm32f7xx.h"
+#include "adc.h"
 #include "uart.h"
 
 /*			READ INTERNAL TEMPERATURE ANALOG SIGNAL THROUGH ADC
@@ -13,10 +14,10 @@ int main()
 {
 	uart3_rxtx_init();
 	adc_pc0_config();
-	adc_pc0_start_conversion();
 
 	while(1)
 	{
+		adc_pc0_start_conversion();
 		adc_val = adc1_read();
 		printf("Sensor Value : %d \n\r", adc_val);
 	}

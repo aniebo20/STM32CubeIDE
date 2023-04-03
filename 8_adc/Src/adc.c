@@ -32,10 +32,11 @@
 void adc_pc0_config(void)
 {
 	/* 		Configure ADC GPIO Pin 		*/
-	//1.
-	GPIOC->MODER |= (3U);
 	//2.
 	RCC->AHB1ENR |= (1U << 2);
+	//1.
+	GPIOC->MODER |= ((1U << 1) | (1U << 0));
+
 
 
 	/*		Configure ADC module		*/
@@ -44,7 +45,7 @@ void adc_pc0_config(void)
 	//1.
 	ADC1->SQR3 = ((1U << 3) | (1U << 1));
 	//2.
-	ADC1->SQR1 &= ~(15U);
+	ADC1->SQR1 = 0U;
 	//5.
 	ADC1->CR2 |= (1U);
 	//3.
